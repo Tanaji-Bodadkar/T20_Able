@@ -5,227 +5,6 @@
 <title>FinSight</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <style>
-/* ── ORIGINAL STYLES PRESERVED ── */
-*{margin:0;padding:0;box-sizing:border-box;}
-:root{--bg:#0a0e1a;--card:#111827;--border:#1e2d45;--accent:#00d4aa;--accent2:#00b894;--text:#e8edf5;--muted:#6b7fa3;--danger:#ff6b6b;--warn:#ffd166;}
-body{font-family:'Sora',system-ui,sans-serif;background:var(--bg);color:var(--text);}
-
-.page{display:none;min-height:600px;}
-.page.active{display:block;}
-
-/* ── LOGIN ── */
-.login-wrap{min-height:600px;display:flex;align-items:center;justify-content:center;background:var(--bg);}
-.lcard{width:100%;max-width:400px;background:#111827;border:1px solid var(--border);border-radius:18px;padding:36px;}
-.llogo{font-size:1.5rem;font-weight:800;color:var(--accent);text-align:center;margin-bottom:4px;}
-.lsub{font-size:12px;color:var(--muted);text-align:center;margin-bottom:28px;}
-.lfield{margin-bottom:14px;}
-.lfield label{font-size:11px;color:var(--muted);display:block;margin-bottom:5px;text-transform:uppercase;letter-spacing:.6px;}
-.lfield input{width:100%;padding:11px 13px;background:#0a0e1a;border:1px solid var(--border);border-radius:9px;color:var(--text);font-size:13px;font-family:inherit;outline:none;transition:border-color .2s;}
-.lfield input:focus{border-color:var(--accent);}
-.lerr{font-size:11px;color:var(--danger);margin-top:4px;display:none;}
-.lbtn{width:100%;padding:12px;background:var(--accent);border:none;border-radius:9px;color:#0a0e1a;font-size:14px;font-weight:700;cursor:pointer;margin-top:6px;font-family:inherit;transition:background .2s;}
-.lbtn:hover{background:var(--accent2);}
-.lhint{font-size:11px;color:var(--muted);text-align:center;margin-top:14px;}
-
-/* ── STEPPER ── */
-.step-wrap{background:var(--bg);min-height:600px;padding:28px 24px;}
-.step-header{text-align:center;margin-bottom:28px;}
-.step-header h2{font-size:1.3rem;font-weight:700;color:var(--text);}
-.step-header p{font-size:12px;color:var(--muted);margin-top:4px;}
-.stepper{display:flex;align-items:center;justify-content:center;gap:0;margin-bottom:32px;}
-.s-step{display:flex;flex-direction:column;align-items:center;gap:4px;}
-.s-circle{width:32px;height:32px;border-radius:50%;border:2px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:var(--muted);background:var(--card);transition:all .3s;}
-.s-circle.done{background:var(--accent);border-color:var(--accent);color:#0a0e1a;}
-.s-circle.active{border-color:var(--accent);color:var(--accent);}
-.s-label{font-size:10px;color:var(--muted);white-space:nowrap;}
-.s-line{width:40px;height:2px;background:var(--border);margin-bottom:14px;}
-.s-line.done{background:var(--accent);}
-
-.form-card{background:#111827;border:1px solid var(--border);border-radius:14px;padding:24px;max-width:560px;margin:0 auto;}
-.form-row{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px;}
-.ffield label{font-size:11px;color:var(--muted);display:block;margin-bottom:5px;text-transform:uppercase;letter-spacing:.6px;}
-.ffield input{width:100%;padding:10px 12px;background:#0a0e1a;border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:13px;font-family:inherit;outline:none;transition:border-color .2s;}
-.ffield input:focus{border-color:var(--accent);}
-.form-actions{display:flex;justify-content:space-between;align-items:center;margin-top:20px;}
-.btn-next{padding:10px 24px;background:var(--accent);border:none;border-radius:8px;color:#0a0e1a;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;}
-.btn-back{padding:10px 20px;background:transparent;border:1px solid var(--border);border-radius:8px;color:var(--muted);font-size:13px;cursor:pointer;font-family:inherit;}
-.loan-entry{background:#0a0e1a;border:1px solid var(--border);border-radius:8px;padding:14px;margin-bottom:10px;position:relative;}
-.remove-btn{position:absolute;top:10px;right:10px;background:rgba(255,107,107,.15);border:none;border-radius:5px;color:var(--danger);font-size:11px;cursor:pointer;padding:3px 8px;}
-.add-loan-btn{width:100%;padding:9px;background:rgba(0,212,170,.08);border:1px dashed rgba(0,212,170,.3);border-radius:8px;color:var(--accent);font-size:12px;cursor:pointer;font-family:inherit;margin-top:6px;}
-
-/* ── DASHBOARD ── */
-nav{display:flex;align-items:center;justify-content:space-between;padding:13px 28px;border-bottom:1px solid var(--border);background:#0a0e1a;}
-.nav-logo{font-weight:800;font-size:1.2rem;color:var(--accent);}
-.nav-logo span{color:var(--text);}
-.nav-r{display:flex;align-items:center;gap:12px;}
-.av{width:30px;height:30px;border-radius:50%;background:var(--accent);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:#0a0e1a;}
-.nav-name{font-size:13px;color:var(--text);}
-
-.dash-body{padding:22px 24px;background:var(--bg);}
-.greeting{margin-bottom:18px;}
-.greeting h2{font-size:1.3rem;font-weight:700;}
-.greeting p{font-size:12px;color:var(--muted);margin-top:3px;}
-
-.g4{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin-bottom:18px;}
-.sc{background:#111827;border:1px solid var(--border);border-radius:12px;padding:16px;}
-.sc-lbl{font-size:10px;color:var(--muted);text-transform:uppercase;margin-bottom:6px;}
-.sc-val{font-size:1.4rem;font-weight:700;}
-.sc-sub{font-size:10px;margin-top:3px;}
-.up{color:#00d4aa;} .dn{color:#ff6b6b;} .wn{color:#ffd166;}
-
-.g2{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px;}
-.glass{background:#111827;border:1px solid var(--border);border-radius:14px;padding:18px;}
-.sec-title{font-size:12px;font-weight:700;color:var(--text);margin-bottom:14px;display:flex;align-items:center;gap:6px;}
-.sec-title .dot{width:7px;height:7px;border-radius:50%;background:var(--accent);}
-.chart-wrap{position:relative;height:220px;}
-
-/* ── UPGRADE UI ── */
-.suggest-btn{background:rgba(0, 212, 170, 0.1); border:1px solid var(--border); color:var(--accent); padding:4px 10px; border-radius:6px; font-size:10px; cursor:pointer; margin-right:5px; margin-bottom:5px;}
-#loading{font-size:10px; color:var(--muted); font-style:italic; margin-bottom:8px;}
-</style>
-</head>
-<body>
-
-<div id="app">
-
-<div id="pg-login" class="page active">
-<div class="login-wrap">
-<div class="lcard">
-  <div class="llogo">FinSight</div>
-  <p class="lsub">Your personal financial clarity engine</p>
-  <div class="lfield">
-    <label>Full Name</label>
-    <input id="l-name" type="text" placeholder="e.g. Arjun Rao"/>
-  </div>
-  <div class="lfield">
-    <label>Email Address</label>
-    <input id="l-email" type="email" placeholder="you@example.com"/>
-    <div class="lerr" id="err-email">Enter a valid email</div>
-  </div>
-  <div class="lfield">
-    <label>Password</label>
-    <input id="l-pass" type="password" placeholder="Min 6 characters"/>
-    <div class="lerr" id="err-pass">Password must be 6+ characters</div>
-  </div>
-  <button class="lbtn" onclick="doLogin()">Login & Setup Dashboard</button>
-</div>
-</div>
-</div>
-
-<div id="pg-setup" class="page">
-<div class="step-wrap">
-  <div class="step-header">
-    <h2>Set up your dashboard</h2>
-    <p id="step-sub">Step 1 of 3 — Income & Expenses</p>
-  </div>
-  <div class="stepper">
-    <div class="s-step"><div class="s-circle active" id="sc1">1</div><span class="s-label">Income</span></div>
-    <div class="s-line" id="sl1"></div>
-    <div class="s-step"><div class="s-circle" id="sc2">2</div><span class="s-label">Loans</span></div>
-    <div class="s-line" id="sl2"></div>
-    <div class="s-step"><div class="s-circle" id="sc3">3</div><span class="s-label">Expenses</span></div>
-  </div>
-
-  <div id="step1" class="form-card">
-    <div class="form-row">
-      <div class="ffield"><label>Monthly Income (₹)</label><input id="f-income" type="number" placeholder="80000"/></div>
-      <div class="ffield"><label>Other Income (₹)</label><input id="f-other" type="number" value="0"/></div>
-    </div>
-    <div class="form-row">
-      <div class="ffield"><label>Savings Goal (%)</label><input id="f-savgoal" type="number" placeholder="30"/></div>
-      <div class="ffield"><label>Investment (₹)</label><input id="f-invest" type="number" value="0"/></div>
-    </div>
-    <div class="form-actions"><button class="btn-next" onclick="goStep(2)">Next →</button></div>
-  </div>
-
-  <div id="step2" class="form-card" style="display:none;">
-    <div id="loans-container"></div>
-    <button class="add-loan-btn" onclick="addLoan()">+ Add a Loan</button>
-    <div class="form-actions">
-      <button class="btn-back" onclick="goStep(1)">← Back</button>
-      <button class="btn-next" onclick="goStep(3)">Next →</button>
-    </div>
-  </div>
-
-  <div id="step3" class="form-card" style="display:none;">
-    <div class="form-row">
-      <div class="ffield"><label>Rent (₹)</label><input id="f-rent" type="number" value="0"/></div>
-      <div class="ffield"><label>Food (₹)</label><input id="f-food" type="number" value="0"/></div>
-    </div>
-    <div class="form-row">
-      <div class="ffield"><label>Transport (₹)</label><input id="f-trans" type="number" value="0"/></div>
-      <div class="ffield"><label>Utilities (₹)</label><input id="f-util" type="number" value="0"/></div>
-    </div>
-    <div class="form-actions">
-      <button class="btn-back" onclick="goStep(2)">← Back</button>
-      <button class="btn-next" onclick="buildDashboard()">Generate Dashboard ✦</button>
-    </div>
-  </div>
-</div>
-</div>
-
-<div id="pg-dash" class="page">
-<nav>
-  <div class="nav-logo">Fin<span>Sight</span></div>
-  <div class="nav-r">
-    <div class="av" id="d-av">AR</div>
-    <span class="nav-name" id="d-name">User</span>
-    <button class="lbtn" style="padding:5px 10px; font-size:11px;" onclick="location.reload()">Logout</button>
-  </div>
-</nav>
-
-<div class="dash-body">
-  <div class="glass" style="margin-bottom:20px;">
-    <div class="sec-title"><span class="dot"></span>FinSight AI</div>
-    <div id="chat-box" style="height:140px; overflow-y:auto; margin-bottom:10px; display:flex; flex-direction:column;"></div>
-    
-    <div>
-      <button class="suggest-btn" onclick="quickAsk('Is my EMI risky?')">EMI Risk</button>
-      <button class="suggest-btn" onclick="quickAsk('How to save more?')">Save More</button>
-    </div>
-
-    <div style="display:flex; gap:6px; margin-top:5px;">
-      <input id="chat-input" placeholder="Ask about your finances..." 
-        style="flex:1; padding:10px; border-radius:8px; border:1px solid var(--border); background:#0a0e1a; color:white;">
-      <button onclick="sendMessage()" style="padding:10px 15px; background:var(--accent); border:none; border-radius:8px; cursor:pointer; font-weight:700;">Ask</button>
-    </div>
-  </div>
-
-  <div class="greeting">
-    <h2 id="d-greet">Good morning 👋</h2>
-    <p>Your financial snapshot</p>
-  </div>
-
-  <div class="g4">
-    <div class="sc"><div class="sc-lbl">Income</div><div class="sc-val up" id="d-income">₹0</div></div>
-    <div class="sc"><div class="sc-lbl">Expenses</div><div class="sc-val dn" id="d-exp">₹0</div></div>
-    <div class="sc"><div class="sc-lbl">Net Savings</div><div class="sc-val" id="d-sav" style="color:#0070f3;">₹0</div></div>
-    <div class="sc"><div class="sc-lbl">Loan EMI</div><div class="sc-val wn" id="d-emi">₹0</div></div>
-  </div>
-
-  <div class="g2">
-    <div class="glass">
-      <div class="sec-title"><span class="dot"></span>Budget Split</div>
-      <div class="chart-wrap"><canvas id="cDonut"></canvas></div>
-    </div>
-    <div class="glass">
-      <div class="sec-title"><span class="dot"></span>AI Insights</div>
-      <div id="d-insights" style="font-size:12px; color:var(--muted);">Fill data to see insights.</div>
-    </div>
-  </div>
-</div>
-</div>
-
-</div>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<title>FinSight</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<style>
 /* ── THEME & CORE ── */
 *{margin:0;padding:0;box-sizing:border-box;}
 :root{--bg:#0a0e1a;--card:#111827;--border:#1e2d45;--accent:#00d4aa;--accent2:#00b894;--text:#e8edf5;--muted:#6b7fa3;--danger:#ff6b6b;--warn:#ffd166;}
@@ -262,45 +41,30 @@ body{font-family:'Sora',system-ui,sans-serif;background:var(--bg);color:var(--te
 .form-card{background:#111827;border:1px solid var(--border);border-radius:14px;padding:24px;max-width:560px;margin:0 auto;}
 .form-row{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px;}
 .ffield label{font-size:11px;color:var(--muted);display:block;margin-bottom:5px;text-transform:uppercase;letter-spacing:.6px;}
-.ffield input{width:100%;padding:10px 12px;background:#0a0e1a;border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:13px;font-family:inherit;outline:none;}
+.ffield input{width:100%;padding:10px 12px;background:#0a0e1a;border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:13px;font-family:inherit;outline:none;transition:border-color .2s;}
 .ffield input:focus{border-color:var(--accent);}
+.form-actions{display:flex;justify-content:space-between;align-items:center;margin-top:20px;}
 .btn-next{padding:10px 24px;background:var(--accent);border:none;border-radius:8px;color:#0a0e1a;font-size:13px;font-weight:700;cursor:pointer;}
 .btn-back{padding:10px 20px;background:transparent;border:1px solid var(--border);border-radius:8px;color:var(--muted);font-size:13px;cursor:pointer;}
 
-/* ── LOAN ENTRIES ── */
+/* ── LOAN ENTRY ── */
 .loan-entry{background:#0a0e1a;border:1px solid var(--border);border-radius:12px;padding:18px;margin-bottom:14px;position:relative;}
 .remove-btn{position:absolute;top:15px;right:15px;background:rgba(255,107,107,0.1);border:none;border-radius:6px;color:var(--danger);font-size:11px;cursor:pointer;padding:4px 10px;}
 .add-loan-btn{width:100%;padding:11px;background:rgba(0,212,170,0.08);border:1px dashed rgba(0,212,170,0.3);border-radius:10px;color:var(--accent);cursor:pointer;font-weight:600;margin-top:6px;}
 
-/* ── DASHBOARD NAV & DROPDOWN ── */
+/* ── NAV & DROPDOWN ── */
 nav{display:flex;align-items:center;justify-content:space-between;padding:13px 28px;border-bottom:1px solid var(--border);background:#0a0e1a;position:sticky;top:0;z-index:100;}
 .nav-logo{font-weight:800;font-size:1.2rem;color:var(--accent);}
 .nav-logo span{color:var(--text);}
-
 .profile-container { position: relative; }
-.av-btn {
-  width: 38px; height: 38px; border-radius: 50%;
-  background: linear-gradient(135deg, var(--accent), var(--accent2));
-  display: flex; align-items: center; justify-content: center;
-  font-size: 13px; font-weight: 800; color: #0a0e1a;
-  cursor: pointer; border: none; box-shadow: 0 0 15px rgba(0,212,170,0.15);
-}
-
-.dropdown-menu {
-  position: absolute; right: 0; top: 48px;
-  background: #111827; border: 1px solid var(--border);
-  border-radius: 12px; width: 160px; padding: 6px;
-  display: none; flex-direction: column; z-index: 110;
-}
+.av-btn { width: 38px; height: 38px; border-radius: 50%; background: linear-gradient(135deg, var(--accent), var(--accent2)); display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 800; color: #0a0e1a; cursor: pointer; border: none; box-shadow: 0 0 15px rgba(0,212,170,0.15); }
+.dropdown-menu { position: absolute; right: 0; top: 48px; background: #111827; border: 1px solid var(--border); border-radius: 12px; width: 160px; padding: 6px; display: none; flex-direction: column; z-index: 110; }
 .dropdown-menu.show { display: flex; }
-.dropdown-item {
-  padding: 10px 12px; font-size: 12px; color: var(--text);
-  border-radius: 8px; cursor: pointer; transition: 0.2s;
-}
+.dropdown-item { padding: 10px 12px; font-size: 12px; color: var(--text); border-radius: 8px; cursor: pointer; transition: 0.2s; }
 .dropdown-item:hover { background: rgba(255,255,255,0.05); color: var(--accent); }
 .dropdown-item.logout { color: var(--danger); }
 
-/* ── DASHBOARD BODY ── */
+/* ── DASHBOARD ── */
 .dash-body{padding:22px 24px;}
 .g4{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:18px;}
 .sc{background:#111827;border:1px solid var(--border);border-radius:12px;padding:16px;}
@@ -311,16 +75,17 @@ nav{display:flex;align-items:center;justify-content:space-between;padding:13px 2
 .g2{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
 .glass{background:#111827;border:1px solid var(--border);border-radius:14px;padding:18px;}
 .sec-title{font-size:12px;font-weight:700;color:var(--text);margin-bottom:14px;display:flex;align-items:center;gap:6px;}
-.sec-title .dot{width:7px;height:7px;border-radius:50%;background:var(--accent);}
+.sec-title .dot{width:7px;height:7px;border-radius:50%;background:var(--accent);flex-shrink:0;}
 
 .chart-container{position:relative;height:240px;}
 .chart-center-text{position:absolute; top:55%; left:50%; transform:translate(-50%, -50%); text-align:center;}
 .chart-center-text .val{font-size:18px; font-weight:800; color:var(--text);}
 .chart-center-text .lbl{font-size:9px; color:var(--muted); text-transform:uppercase;}
 
-/* ── CHAT UI ── */
 #chat-box{height:140px; overflow-y:auto; margin-bottom:10px; display:flex; flex-direction:column; gap:8px;}
 .suggest-btn{background:rgba(0, 212, 170, 0.1); border:1px solid var(--border); color:var(--accent); padding:5px 12px; border-radius:6px; font-size:10px; cursor:pointer; margin-right:6px; margin-bottom:6px;}
+#pdfSummaryResult ul { padding-left: 15px; margin-top: 10px; list-style: circle; }
+#pdfSummaryResult li { margin-bottom: 8px; font-size: 11px; color: var(--muted); }
 </style>
 </head>
 <body>
@@ -370,12 +135,12 @@ nav{display:flex;align-items:center;justify-content:space-between;padding:13px 2
 
     <div id="step3" class="form-card" style="display:none;">
       <div class="form-row">
-        <div class="ffield"><label>Rent/Housing (₹)</label><input id="f-rent" type="number" value="0"></div>
-        <div class="ffield"><label>Lifestyle (₹)</label><input id="f-food" type="number" value="0"></div>
+        <div class="ffield"><label>Rent/Housing (₹)</label><input id="f-rent" type="number" value="15000"></div>
+        <div class="ffield"><label>Lifestyle/Food (₹)</label><input id="f-food" type="number" value="10000"></div>
       </div>
       <div class="form-actions">
         <button class="btn-back" onclick="goStep(2)">← Back</button>
-        <button class="btn-next" onclick="buildDashboard()">Launch ✦</button>
+        <button class="btn-next" onclick="buildDashboard()">Launch Dashboard ✦</button>
       </div>
     </div>
   </div>
@@ -395,7 +160,7 @@ nav{display:flex;align-items:center;justify-content:space-between;padding:13px 2
 
   <div class="dash-body">
     <div class="glass" style="margin-bottom:20px;">
-      <div class="sec-title"><span class="dot"></span>FinSight AI</div>
+      <div class="sec-title"><span class="dot"></span>FinSight AI Advisor</div>
       <div id="chat-box"></div>
       <div>
         <button class="suggest-btn" onclick="quickAsk('Is my EMI risky?')">EMI Risk</button>
@@ -411,18 +176,30 @@ nav{display:flex;align-items:center;justify-content:space-between;padding:13px 2
       <div class="sc"><div class="sc-lbl">Income</div><div class="sc-val up" id="d-income">₹0</div></div>
       <div class="sc"><div class="sc-lbl">Expenses</div><div class="sc-val dn" id="d-exp">₹0</div></div>
       <div class="sc"><div class="sc-lbl">Net Savings</div><div class="sc-val" id="d-sav" style="color:#0070f3;">₹0</div></div>
-      <div class="sc"><div class="sc-lbl">EMI</div><div class="sc-val wn" id="d-emi">₹0</div></div>
+      <div class="sc"><div class="sc-lbl">Total EMI</div><div class="sc-val wn" id="d-emi">₹0</div></div>
     </div>
 
     <div class="g2">
       <div class="glass">
-        <div class="sec-title"><span class="dot"></span>Distribution</div>
+        <div class="sec-title"><span class="dot"></span>Wealth Distribution</div>
         <div class="chart-container">
           <canvas id="cDonut"></canvas>
           <div class="chart-center-text"><span class="val" id="chart-sum">0%</span><br><span class="lbl">Savings</span></div>
         </div>
       </div>
-      <div class="glass"><div class="sec-title"><span class="dot"></span>Insights</div><div id="d-insights" style="font-size:12px; color:var(--muted); line-height:1.6;"></div></div>
+      
+      <div class="glass">
+        <div class="sec-title"><span class="dot"></span>Instant PDF Summarizer</div>
+        <p style="font-size: 10px; color: var(--muted); margin-bottom: 12px;">Upload loan documents for a quick scan.</p>
+        <input type="file" id="pdfFile" accept=".pdf" style="font-size: 11px; margin-bottom: 12px; display: block; width: 100%;">
+        <button class="lbtn" onclick="summarizePDF()" style="padding: 8px; font-size: 12px;">Summarize Document</button>
+        <div id="pdfSummaryResult" style="margin-top: 15px; border-top: 1px solid var(--border); padding-top: 10px;"></div>
+      </div>
+    </div>
+
+    <div class="glass" style="margin-top: 20px;">
+        <div class="sec-title"><span class="dot"></span>Quick Insights</div>
+        <div id="d-insights" style="font-size:12px; color:var(--muted); line-height: 1.6;">Enter data to generate insights.</div>
     </div>
   </div>
 </div>
@@ -430,11 +207,15 @@ nav{display:flex;align-items:center;justify-content:space-between;padding:13px 2
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.min.js"></script>
 <script>
+// PDF.js Worker Configuration
+pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.worker.min.js';
+
 var userData={name:''};
 var chartDonut=null, loanCount=0;
 
-// ── NAVIGATION DROPDOWN ──
+// Dropdown
 function toggleDropdown(e) {
   e.stopPropagation();
   document.getElementById('nav-dropdown').classList.toggle('show');
@@ -469,11 +250,10 @@ function addLoan(){
     <div style="font-size:10px; color:var(--muted); margin-bottom:10px; font-weight:700;">LOAN #${loanCount}</div>
     <button class="remove-btn" onclick="this.parentElement.remove()">Remove</button>
     <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
-      <div class="ffield"><label>Loan Name</label><input type="text" class="l-name" placeholder="e.g. Car Loan"></div>
-      <div class="ffield"><label>Disbursal Amount</label><input type="number" class="l-p" placeholder="500000"></div>
-      <div class="ffield"><label>Interest Rate (%)</label><input type="number" class="l-r" placeholder="8.5"></div>
-      <div class="ffield"><label>Months</label><input type="number" class="l-t" placeholder="36"></div>
-      <div class="ffield"><label>Autopay Date</label><input type="number" class="l-pay" placeholder="Day (1-28)"></div>
+      <div class="ffield"><label>Loan Name</label><input type="text" class="l-name" placeholder="Home Loan"></div>
+      <div class="ffield"><label>Principal (₹)</label><input type="number" class="l-p" placeholder="500000"></div>
+      <div class="ffield"><label>Interest (%)</label><input type="number" class="l-r" placeholder="8.5"></div>
+      <div class="ffield"><label>Months</label><input type="number" class="l-t" placeholder="120"></div>
     </div>`;
   document.getElementById('loans-container').appendChild(d);
 }
@@ -512,7 +292,51 @@ function buildDashboard(){
   show('pg-dash');
 }
 
-// ── BACKEND AI CONNECTION ──
+// ── PDF SUMMARIZER (FIXED) ──
+async function extractTextFromPDF(file) {
+  const arrayBuffer = await file.arrayBuffer();
+  const pdf = await pdfjsLib.getDocument({ data: arrayBuffer }).promise;
+  let text = "";
+  const pagesToRead = Math.min(3, pdf.numPages);
+  for (let i = 1; i <= pagesToRead; i++) {
+    const page = await pdf.getPage(i); // FIXED: Removed page = await
+    const content = await page.getTextContent();
+    text += content.items.map(item => item.str).join(" ") + "\n";
+  }
+  return text;
+}
+
+function performSummary(text) {
+  const sentences = text.split(/[.?!]\s+/).map(s => s.trim()).filter(s => s.length > 20);
+  const keywords = ["loan","interest","emi","penalty","repayment","tenure","default","rate","charges"];
+  const scored = sentences.map(sentence => {
+    let score = 0;
+    keywords.forEach(word => { if (sentence.toLowerCase().includes(word)) score++; });
+    return { sentence, score };
+  });
+  scored.sort((a, b) => b.score - a.score);
+  return scored.slice(0, 5);
+}
+
+async function summarizePDF() {
+  const file = document.getElementById("pdfFile").files[0];
+  if (!file) { alert("Select a PDF first."); return; }
+  const resultBox = document.getElementById("pdfSummaryResult");
+  resultBox.innerHTML = "<span style='font-size:11px; color:var(--accent);'>Analyzing document...</span>";
+  try {
+    const text = await extractTextFromPDF(file);
+    const summary = performSummary(text);
+    let html = `<ul>`;
+    if(summary.length === 0) { html += `<li>No significant markers found.</li>`; }
+    else { summary.forEach(item => { html += `<li>${item.sentence}</li>`; }); }
+    html += "</ul>";
+    resultBox.innerHTML = html;
+  } catch (err) {
+    resultBox.innerHTML = "<span style='color:var(--danger);'>Error reading PDF.</span>";
+  }
+}
+
+// ── AI CHAT ──
 function quickAsk(q){ document.getElementById("chat-input").value = q; sendMessage(); }
 
 async function sendMessage(){
@@ -541,13 +365,11 @@ async function sendMessage(){
     document.getElementById("ai-load").remove();
     box.innerHTML += `<div style="text-align:left;"><span style="background:var(--border); padding:8px 12px; border-radius:10px; font-size:11px; display:inline-block; line-height:1.4;">${data.reply}</span></div>`;
   } catch(e) {
-    document.getElementById("ai-load").remove();
+    if(document.getElementById("ai-load")) document.getElementById("ai-load").remove();
     box.innerHTML += `<div style="font-size:10px; color:var(--danger);">Connection Error</div>`;
   }
   box.scrollTop = box.scrollHeight;
 }
 </script>
-</body>
-</html>
 </body>
 </html>
