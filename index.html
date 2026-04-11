@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>FinSight — Consent You Can Trust</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --bg: #0a0e1a;
+  --card: #1a2235;
+  --border: #1e2d45;
+  --accent: #00d4aa;
+  --text: #e8edf5;
+  --muted: #6b7fa3;
+}
+
+* { margin:0; padding:0; box-sizing:border-box; }
+
+body {
+  font-family: 'Sora', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+}
+
+nav {
+  display:flex;
+  justify-content:space-between;
+  padding:16px 40px;
+  border-bottom:1px solid var(--border);
+}
+
+.nav-logo {
+  font-weight:800;
+  color: var(--accent);
+}
+
+.hero {
+  text-align:center;
+  padding:60px 20px;
+}
+
+.hero h1 {
+  font-size:2.5rem;
+}
+
+.highlight {
+  color: var(--accent);
+}
+
+.hero p {
+  color: var(--muted);
+  margin-top:15px;
+}
+
+.tool {
+  max-width:800px;
+  margin:auto;
+  padding:30px 20px;
+}
+
+.card {
+  background: var(--card);
+  padding:20px;
+  border-radius:12px;
+  border:1px solid var(--border);
+  margin-top:20px;
+}
+
+input, textarea, select {
+  width:100%;
+  margin:10px 0;
+  padding:12px;
+  border-radius:8px;
+  border:none;
+  background:#0f172a;
+  color:white;
+}
+
+button {
+  background: var(--accent);
+  color:black;
+  padding:10px;
+  border:none;
+  border-radius:8px;
+  font-weight:700;
+  cursor:pointer;
+  margin-top:8px;
+}
+
+.lang-btn {
+  flex:1;
+}
+
+.mode-btn {
+  width:100%;
+  margin-top:10px;
+}
+
+#output {
+  margin-top:20px;
+}
+
+footer {
+  text-align:center;
+  padding:20px;
+  border-top:1px solid var(--border);
+  color:var(--muted);
+}
+</style>
+</head>
+
+<body>
+
+<nav>
+  <div class="nav-logo">FinSight</div>
+</nav>
+
+<section class="hero">
+  <h1>Consent You <span class="highlight">Actually</span> Understand</h1>
+  <p>Clear financial decisions in your own language</p>
+</section>
+
+<section class="tool">
+
+<!-- LANGUAGE -->
+<div class="card">
+<h3 id="langTitle">Select Language</h3>
+
+<div style="display:flex; gap:10px;">
+  <button class="lang-btn" onclick="setLanguage('en')">English</button>
+  <button class="lang-btn" onclick="setLanguage('hi')">Hindi</button>
+  <button class="lang-btn" onclick="setLanguage('mr')">Marathi</button>
+</div>
+</div>
+
+<!-- MODE -->
+<div class="card">
+<h3 id="modeTitle">Choose Mode</h3>
+
+<button class="mode-btn" onclick="showMode('doc')">📄 Document Mode</button>
+<button class="mode-btn" onclick="showMode('tools')">⚙️ Financial Tools</button>
+
+<!-- DOCUMENT -->
+<div id="docMode" style="display:none;">
+  <textarea id="doc" placeholder="Paste financial document..."></textarea>
+  <button onclick="simplifyDoc()">Simplify & Explain</button>
+</div>
+
+<!-- TOOLS -->
+<div id="toolsMode" style="display:none;">
+
+  <h4>Loan Calculator</h4>
+  <input type="number" id="amount" placeholder="Amount">
+  <input type="number" id="rate" placeholder="Interest %">
+  <input type="number" id="months" placeholder="Months">
+  <button onclick="calculateLoan()">Calculate EMI</button>
+
+  <h4>Investment Advice</h4>
+  <select id="risk">
+    <option value="">Select Risk</option>
+    <option value="low">Low</option>
+    <option value="medium">Medium</option>
+    <option value="high">High</option>
+  </select>
+  <button onclick="investmentAdvice()">Get Advice</button>
+
+  <h4>Budget</h4>
+  <input type="number" id="income" placeholder="Income">
+  <input type="number" id="expenses" placeholder="Expenses">
+  <button onclick="budgetTips()">Analyze Budget</button>
+
+</div>
+
+</div>
+
+<div id="output"></div>
+
+</section>
+
+<footer>
+FinSight · Hackathon Project · Team ABLE
+</footer>
+
+<script>
+
+let currentLang = "en";
+
+// 🌍 UI TEXT
+const uiText = {
+  en: {
+    lang: "Select Language",
+    mode: "Choose Mode",
+    doc: "📄 Document Mode",
+    tools: "⚙️ Financial Tools"
+  },
+  hi: {
+    lang: "भाषा चुनें",
+    mode: "मोड चुनें",
+    doc: "📄 दस्तावेज़ मोड",
+    tools: "⚙️ वित्तीय उपकरण"
+  },
+  mr: {
+    lang: "भाषा निवडा",
+    mode: "मोड निवडा",
+    doc: "📄 दस्तऐवज मोड",
+    tools: "⚙️ आर्थिक साधने"
+  }
+};
+
+// 🌍 CONTENT TRANSLATIONS
+const t = {
+  en: {
+    doc: "This document means you must repay with interest.",
+    loan: "Your EMI is",
+    good: "Good savings",
+    bad: "Reduce expenses",
+    low: "Safe: FD / Bonds",
+    medium: "Mutual Funds",
+    high: "Stocks / Crypto"
+  },
+  hi: {
+    doc: "इस दस्तावेज़ का मतलब है कि आपको ब्याज के साथ भुगतान करना होगा।",
+    loan: "आपकी EMI है",
+    good: "अच्छी बचत",
+    bad: "खर्च कम करें",
+    low: "सुरक्षित: FD / Bonds",
+    medium: "म्यूचुअल फंड",
+    high: "स्टॉक्स / क्रिप्टो"
+  },
+  mr: {
+    doc: "या दस्तऐवजाचा अर्थ तुम्हाला व्याजासह परतफेड करावी लागेल.",
+    loan: "तुमची EMI आहे",
+    good: "चांगली बचत",
+    bad: "खर्च कमी करा",
+    low: "सुरक्षित: FD / Bonds",
+    medium: "म्युच्युअल फंड",
+    high: "स्टॉक्स / क्रिप्टो"
+  }
+};
+
+// 🌍 SET LANGUAGE (FIXED)
+function setLanguage(lang) {
+  currentLang = lang;
+
+  // Update UI text
+  document.getElementById("langTitle").innerText = uiText[lang].lang;
+  document.getElementById("modeTitle").innerText = uiText[lang].mode;
+
+  let buttons = document.querySelectorAll(".mode-btn");
+  buttons[0].innerText = uiText[lang].doc;
+  buttons[1].innerText = uiText[lang].tools;
+
+  // Speak confirmation
+  if(lang === "hi") speak("भाषा बदल दी गई है");
+  else if(lang === "mr") speak("भाषा बदलली आहे");
+  else speak("Language changed");
+}
+
+// 🔄 MODE SWITCH
+function showMode(mode) {
+  document.getElementById("docMode").style.display = "none";
+  document.getElementById("toolsMode").style.display = "none";
+
+  if(mode === "doc") document.getElementById("docMode").style.display = "block";
+  if(mode === "tools") document.getElementById("toolsMode").style.display = "block";
+}
+
+// 🔊 SPEECH
+function speak(text) {
+  let u = new SpeechSynthesisUtterance(text);
+
+  u.lang = currentLang === "hi" ? "hi-IN" :
+           currentLang === "mr" ? "mr-IN" : "en-IN";
+
+  speechSynthesis.cancel();
+  speechSynthesis.speak(u);
+}
+
+// 📄 DOCUMENT
+function simplifyDoc() {
+  let msg = t[currentLang].doc;
+
+  output.innerHTML = `<div class="card">${msg}</div>`;
+  speak(msg);
+}
+
+// 💰 LOAN
+function calculateLoan() {
+  let P = +amount.value;
+  let r = +rate.value / 12 / 100;
+  let n = +months.value;
+
+  let emi = (P * r * Math.pow(1+r,n)) / (Math.pow(1+r,n)-1);
+
+  let msg = `${t[currentLang].loan}: ₹${emi.toFixed(2)}`;
+
+  output.innerHTML = `<div class="card">${msg}</div>`;
+  speak(msg);
+}
+
+// 📈 INVESTMENT
+function investmentAdvice() {
+  let risk = document.getElementById("risk").value;
+  let msg = t[currentLang][risk] || "Select valid risk";
+
+  output.innerHTML = `<div class="card">${msg}</div>`;
+  speak(msg);
+}
+function budgetTips() {
+
+  let inc = +document.getElementById("income").value;
+  let exp = +document.getElementById("expenses").value;
+
+  if(!inc || !exp){
+    alert("Enter valid values");
+    return;
+  }
+
+  // CALL BACKEND
+  fetch('http://127.0.0.1:5000/budget', {
+    method:'POST',
+    headers:{'Content-Type':'application/json'},
+    body: JSON.stringify({
+      income: inc,
+      expenses: exp
+    })
+  })
+  .then(res => res.json())
+  .then(data => {
+
+    let savings = data.savings;
+
+    // Show result
+    let msg = inc > exp ? t[currentLang].good : t[currentLang].bad;
+
+    output.innerHTML = `
+      <div class="card">
+        <h3>Budget Result</h3>
+        <p>Income: ₹${inc}</p>
+        <p>Expenses: ₹${exp}</p>
+        <p>Savings: ₹${savings}</p>
+        <p>${msg}</p>
+      </div>
+    `;
+
+    speak(msg);
+  })
+  .catch(err => {
+    alert("⚠️ Backend not running!");
+    console.error(err);
+  });
+}
+
+</script>
+
+</body>
+</html>
