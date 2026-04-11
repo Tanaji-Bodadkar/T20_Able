@@ -1,5 +1,5 @@
 # FinSight 💸
-### AI-Powered Multilingual Financial Wellness & Loan Intelligence Platform
+### Multilingual Financial Wellness & Loan Intelligence Platform
 
 FinSight is a hackathon project designed to help users understand and improve their financial health using AI-powered insights, multilingual assistance, EMI tracking, and instant PDF loan document summarization.
 
