@@ -2,359 +2,467 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>FinSight — Consent You Can Trust</title>
-
-<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700;800&display=swap" rel="stylesheet">
-
+<title>FinSight</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <style>
-:root {
-  --bg: #0a0e1a;
-  --card: #1a2235;
-  --border: #1e2d45;
-  --accent: #00d4aa;
-  --text: #e8edf5;
-  --muted: #6b7fa3;
-}
+*{margin:0;padding:0;box-sizing:border-box;}
+:root{--bg:#0a0e1a;--card:#111827;--border:#1e2d45;--accent:#00d4aa;--accent2:#00b894;--text:#e8edf5;--muted:#6b7fa3;--danger:#ff6b6b;--warn:#ffd166;}
+body{font-family:'Sora',system-ui,sans-serif;background:var(--bg);color:var(--text);}
 
-* { margin:0; padding:0; box-sizing:border-box; }
+.page{display:none;min-height:600px;}
+.page.active{display:block;}
 
-body {
-  font-family: 'Sora', sans-serif;
-  background: var(--bg);
-  color: var(--text);
-}
+/* ── LOGIN ── */
+.login-wrap{min-height:600px;display:flex;align-items:center;justify-content:center;background:var(--bg);}
+.lcard{width:100%;max-width:400px;background:#111827;border:1px solid var(--border);border-radius:18px;padding:36px;}
+.llogo{font-size:1.5rem;font-weight:800;color:var(--accent);text-align:center;margin-bottom:4px;}
+.lsub{font-size:12px;color:var(--muted);text-align:center;margin-bottom:28px;}
+.lfield{margin-bottom:14px;}
+.lfield label{font-size:11px;color:var(--muted);display:block;margin-bottom:5px;text-transform:uppercase;letter-spacing:.6px;}
+.lfield input{width:100%;padding:11px 13px;background:#0a0e1a;border:1px solid var(--border);border-radius:9px;color:var(--text);font-size:13px;font-family:inherit;outline:none;transition:border-color .2s;}
+.lfield input:focus{border-color:var(--accent);}
+.lerr{font-size:11px;color:var(--danger);margin-top:4px;display:none;}
+.lbtn{width:100%;padding:12px;background:var(--accent);border:none;border-radius:9px;color:#0a0e1a;font-size:14px;font-weight:700;cursor:pointer;margin-top:6px;font-family:inherit;transition:background .2s;}
+.lbtn:hover{background:var(--accent2);}
+.lhint{font-size:11px;color:var(--muted);text-align:center;margin-top:14px;}
 
-nav {
-  display:flex;
-  justify-content:space-between;
-  padding:16px 40px;
-  border-bottom:1px solid var(--border);
-}
+/* ── STEPPER ── */
+.step-wrap{background:var(--bg);min-height:600px;padding:28px 24px;}
+.step-header{text-align:center;margin-bottom:28px;}
+.step-header h2{font-size:1.3rem;font-weight:700;color:var(--text);}
+.step-header p{font-size:12px;color:var(--muted);margin-top:4px;}
+.stepper{display:flex;align-items:center;justify-content:center;gap:0;margin-bottom:32px;}
+.s-step{display:flex;flex-direction:column;align-items:center;gap:4px;}
+.s-circle{width:32px;height:32px;border-radius:50%;border:2px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:var(--muted);background:var(--card);transition:all .3s;}
+.s-circle.done{background:var(--accent);border-color:var(--accent);color:#0a0e1a;}
+.s-circle.active{border-color:var(--accent);color:var(--accent);}
+.s-label{font-size:10px;color:var(--muted);white-space:nowrap;}
+.s-line{width:40px;height:2px;background:var(--border);margin-bottom:14px;}
+.s-line.done{background:var(--accent);}
 
-.nav-logo {
-  font-weight:800;
-  color: var(--accent);
-}
+.form-card{background:#111827;border:1px solid var(--border);border-radius:14px;padding:24px;max-width:560px;margin:0 auto;}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px;}
+.form-row.single{grid-template-columns:1fr;}
+.ffield label{font-size:11px;color:var(--muted);display:block;margin-bottom:5px;text-transform:uppercase;letter-spacing:.6px;}
+.ffield input,.ffield select{width:100%;padding:10px 12px;background:#0a0e1a;border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:13px;font-family:inherit;outline:none;transition:border-color .2s;}
+.ffield input:focus,.ffield select:focus{border-color:var(--accent);}
+.ffield select option{background:#111827;}
+.form-actions{display:flex;justify-content:space-between;align-items:center;margin-top:20px;}
+.btn-next{padding:10px 24px;background:var(--accent);border:none;border-radius:8px;color:#0a0e1a;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;}
+.btn-next:hover{background:var(--accent2);}
+.btn-back{padding:10px 20px;background:transparent;border:1px solid var(--border);border-radius:8px;color:var(--muted);font-size:13px;cursor:pointer;font-family:inherit;}
+.btn-back:hover{border-color:var(--accent);color:var(--accent);}
+.loan-entry{background:#0a0e1a;border:1px solid var(--border);border-radius:8px;padding:14px;margin-bottom:10px;position:relative;}
+.remove-btn{position:absolute;top:10px;right:10px;background:rgba(255,107,107,.15);border:none;border-radius:5px;color:var(--danger);font-size:11px;cursor:pointer;padding:3px 8px;}
+.add-loan-btn{width:100%;padding:9px;background:rgba(0,212,170,.08);border:1px dashed rgba(0,212,170,.3);border-radius:8px;color:var(--accent);font-size:12px;cursor:pointer;font-family:inherit;margin-top:6px;}
+.add-loan-btn:hover{background:rgba(0,212,170,.14);}
 
-.hero {
-  text-align:center;
-  padding:60px 20px;
-}
+/* ── DASHBOARD ── */
+nav{display:flex;align-items:center;justify-content:space-between;padding:13px 28px;border-bottom:1px solid var(--border);background:#0a0e1a;}
+.nav-logo{font-weight:800;font-size:1.2rem;color:var(--accent);}
+.nav-logo span{color:var(--text);}
+.nav-r{display:flex;align-items:center;gap:12px;}
+.av{width:30px;height:30px;border-radius:50%;background:var(--accent);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:#0a0e1a;}
+.nav-name{font-size:13px;color:var(--text);}
+.edit-btn{font-size:11px;padding:5px 12px;background:rgba(0,212,170,.1);border:1px solid rgba(0,212,170,.25);border-radius:6px;color:var(--accent);cursor:pointer;}
+.edit-btn:hover{background:rgba(0,212,170,.18);}
+.logout-btn{font-size:11px;padding:5px 12px;background:rgba(255,107,107,.1);border:1px solid rgba(255,107,107,.2);border-radius:6px;color:var(--danger);cursor:pointer;}
 
-.hero h1 {
-  font-size:2.5rem;
-}
+.dash-body{padding:22px 24px;background:var(--bg);}
+.greeting{margin-bottom:18px;}
+.greeting h2{font-size:1.3rem;font-weight:700;}
+.greeting p{font-size:12px;color:var(--muted);margin-top:3px;}
 
-.highlight {
-  color: var(--accent);
-}
+.g4{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin-bottom:18px;}
+.sc{background:#111827;border:1px solid var(--border);border-radius:12px;padding:16px;transition:border-color .2s;}
+.sc:hover{border-color:rgba(0,212,170,.3);}
+.sc-lbl{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.7px;margin-bottom:6px;}
+.sc-val{font-size:1.4rem;font-weight:700;}
+.sc-sub{font-size:10px;margin-top:3px;}
+.up{color:#00d4aa;} .dn{color:#ff6b6b;} .wn{color:#ffd166;}
 
-.hero p {
-  color: var(--muted);
-  margin-top:15px;
-}
+.g2{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:16px;margin-bottom:16px;}
+.g3{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,1fr);gap:16px;}
+.glass{background:#111827;border:1px solid var(--border);border-radius:14px;padding:18px;}
+.sec-title{font-size:12px;font-weight:700;color:var(--text);margin-bottom:14px;display:flex;align-items:center;gap:6px;}
+.sec-title .dot{width:7px;height:7px;border-radius:50%;background:var(--accent);flex-shrink:0;}
+.chart-wrap{position:relative;height:220px;}
 
-.tool {
-  max-width:800px;
-  margin:auto;
-  padding:30px 20px;
-}
+.ins-item{display:flex;align-items:flex-start;gap:10px;padding:10px 0;border-bottom:1px solid var(--border);}
+.ins-item:last-child{border-bottom:none;}
+.ins-ico{width:30px;height:30px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0;}
+.ins-ico.d{background:rgba(255,107,107,.12);}
+.ins-ico.w{background:rgba(255,209,102,.12);}
+.ins-ico.g{background:rgba(0,212,170,.12);}
+.ins-t strong{font-size:12px;font-weight:600;display:block;margin-bottom:1px;}
+.ins-t span{font-size:10px;color:var(--muted);line-height:1.4;}
+.badge{font-size:9px;padding:2px 7px;border-radius:10px;font-weight:700;margin-left:auto;align-self:center;flex-shrink:0;}
+.bh{background:rgba(255,107,107,.15);color:#ff6b6b;}
+.bm{background:rgba(255,209,102,.15);color:#ffd166;}
+.bl{background:rgba(0,212,170,.15);color:#00d4aa;}
 
-.card {
-  background: var(--card);
-  padding:20px;
-  border-radius:12px;
-  border:1px solid var(--border);
-  margin-top:20px;
-}
+.sug-item{display:flex;align-items:flex-start;gap:9px;padding:9px 0;border-bottom:1px solid var(--border);}
+.sug-item:last-child{border-bottom:none;}
+.sug-n{width:20px;height:20px;border-radius:50%;background:rgba(0,212,170,.12);color:var(--accent);font-size:10px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;}
+.sug-item p{font-size:11px;color:var(--text);line-height:1.45;}
 
-input, textarea, select {
-  width:100%;
-  margin:10px 0;
-  padding:12px;
-  border-radius:8px;
-  border:none;
-  background:#0f172a;
-  color:white;
-}
+.rep-row{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid var(--border);}
+.rep-row:last-child{border-bottom:none;}
+.rep-k{font-size:11px;color:var(--muted);}
+.rep-v{font-size:12px;font-weight:700;color:var(--text);}
 
-button {
-  background: var(--accent);
-  color:black;
-  padding:10px;
-  border:none;
-  border-radius:8px;
-  font-weight:700;
-  cursor:pointer;
-  margin-top:8px;
-}
+.risk-bar-row{display:flex;align-items:center;gap:8px;margin-bottom:8px;}
+.rb-label{font-size:10px;color:var(--muted);width:64px;flex-shrink:0;}
+.rb-track{flex:1;height:5px;background:rgba(255,255,255,.06);border-radius:3px;overflow:hidden;}
+.rb-fill{height:100%;border-radius:3px;transition:width 1.2s ease;}
+.risk-pills{display:flex;gap:6px;margin-top:10px;}
+.rpill{flex:1;padding:7px;border-radius:7px;text-align:center;font-size:10px;font-weight:700;opacity:.3;transition:opacity .3s;}
+.rpill.on{opacity:1;}
+.rpill.low{background:rgba(0,212,170,.15);color:#00d4aa;}
+.rpill.mid{background:rgba(255,209,102,.15);color:#ffd166;}
+.rpill.hi{background:rgba(255,107,107,.15);color:#ff6b6b;}
 
-.lang-btn {
-  flex:1;
-}
-
-.mode-btn {
-  width:100%;
-  margin-top:10px;
-}
-
-#output {
-  margin-top:20px;
-}
-
-footer {
-  text-align:center;
-  padding:20px;
-  border-top:1px solid var(--border);
-  color:var(--muted);
-}
+.legend{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:10px;}
+.leg{display:flex;align-items:center;gap:4px;font-size:10px;color:var(--muted);}
+.leg-sq{width:9px;height:9px;border-radius:2px;}
+.no-loans{font-size:11px;color:var(--muted);text-align:center;padding:10px 0;}
 </style>
-</head>
-
 <body>
+<h2 class="sr-only" style="position:absolute;left:-9999px;">FinSight — dynamic financial dashboard with login and data entry</h2>
+
+<div id="app">
+
+<!-- PAGE 1: LOGIN -->
+<div id="pg-login" class="page active">
+<div class="login-wrap">
+<div class="lcard">
+  <div class="llogo">FinSight</div>
+  <p class="lsub">Your personal financial clarity engine</p>
+  <div class="lfield">
+    <label>Full Name</label>
+    <input id="l-name" type="text" placeholder="e.g. Arjun Rao"/>
+  </div>
+  <div class="lfield">
+    <label>Email Address</label>
+    <input id="l-email" type="email" placeholder="you@example.com"/>
+    <div class="lerr" id="err-email">Enter a valid email</div>
+  </div>
+  <div class="lfield">
+    <label>Password</label>
+    <input id="l-pass" type="password" placeholder="Min 6 characters"/>
+    <div class="lerr" id="err-pass">Password must be 6+ characters</div>
+  </div>
+  <button class="lbtn" onclick="doLogin()">Login & Setup Dashboard</button>
+  <p class="lhint">No account needed — enter any details to get started</p>
+</div>
+</div>
+</div>
+
+<!-- PAGE 2: DATA ENTRY STEPPER -->
+<div id="pg-setup" class="page">
+<div class="step-wrap">
+  <div class="step-header">
+    <h2>Set up your dashboard</h2>
+    <p id="step-sub">Step 1 of 3 — Income & Expenses</p>
+  </div>
+
+  <div class="stepper">
+    <div class="s-step"><div class="s-circle active" id="sc1">1</div><span class="s-label">Income</span></div>
+    <div class="s-line" id="sl1"></div>
+    <div class="s-step"><div class="s-circle" id="sc2">2</div><span class="s-label">Loans</span></div>
+    <div class="s-line" id="sl2"></div>
+    <div class="s-step"><div class="s-circle" id="sc3">3</div><span class="s-label">Expenses</span></div>
+  </div>
+
+  <!-- STEP 1 -->
+  <div id="step1" class="form-card">
+    <div class="form-row">
+      <div class="ffield"><label>Monthly Income (₹)</label><input id="f-income" type="number" placeholder="e.g. 80000"/></div>
+      <div class="ffield"><label>Other Income (₹)</label><input id="f-other" type="number" placeholder="e.g. 5000" value="0"/></div>
+    </div>
+    <div class="form-row">
+      <div class="ffield"><label>Savings Goal (%)</label><input id="f-savgoal" type="number" placeholder="e.g. 30" min="0" max="100"/></div>
+      <div class="ffield"><label>Investment per month (₹)</label><input id="f-invest" type="number" placeholder="e.g. 10000" value="0"/></div>
+    </div>
+    <div class="form-actions">
+      <span style="font-size:11px;color:var(--muted);">All amounts in ₹</span>
+      <button class="btn-next" onclick="goStep(2)">Next →</button>
+    </div>
+  </div>
+
+  <!-- STEP 2 -->
+  <div id="step2" class="form-card" style="display:none;">
+    <div id="loans-container"></div>
+    <button class="add-loan-btn" onclick="addLoan()">+ Add a Loan</button>
+    <div class="form-actions">
+      <button class="btn-back" onclick="goStep(1)">← Back</button>
+      <button class="btn-next" onclick="goStep(3)">Next →</button>
+    </div>
+  </div>
+
+  <!-- STEP 3 -->
+  <div id="step3" class="form-card" style="display:none;">
+    <div class="form-row">
+      <div class="ffield"><label>Rent / Housing (₹)</label><input id="f-rent" type="number" placeholder="e.g. 15000" value="0"/></div>
+      <div class="ffield"><label>Food & Dining (₹)</label><input id="f-food" type="number" placeholder="e.g. 8000" value="0"/></div>
+    </div>
+    <div class="form-row">
+      <div class="ffield"><label>Transport (₹)</label><input id="f-trans" type="number" placeholder="e.g. 3000" value="0"/></div>
+      <div class="ffield"><label>Entertainment (₹)</label><label></label><input id="f-ent" type="number" placeholder="e.g. 2000" value="0"/></div>
+    </div>
+    <div class="form-row">
+      <div class="ffield"><label>Utilities (₹)</label><input id="f-util" type="number" placeholder="e.g. 2500" value="0"/></div>
+      <div class="ffield"><label>Other Expenses (₹)</label><input id="f-misc" type="number" placeholder="e.g. 3000" value="0"/></div>
+    </div>
+    <div class="form-actions">
+      <button class="btn-back" onclick="goStep(2)">← Back</button>
+      <button class="btn-next" onclick="buildDashboard()">Generate Dashboard ✦</button>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- PAGE 3: DASHBOARD -->
+<div id="pg-dash" class="page">
 
 <nav>
-  <div class="nav-logo">FinSight</div>
+  <div class="nav-logo">Fin<span>Sight</span></div>
+  <div class="nav-r">
+    <div class="av" id="d-av">AR</div>
+    <span class="nav-name" id="d-name">User</span>
+    <button class="edit-btn" onclick="goEdit()">Edit Data</button>
+    <button class="logout-btn" onclick="doLogout()">Logout</button>
+  </div>
 </nav>
 
-<section class="hero">
-  <h1>Consent You <span class="highlight">Actually</span> Understand</h1>
-  <p>Clear financial decisions in your own language</p>
-</section>
+<div class="dash-body">
+  <div class="greeting">
+    <h2 id="d-greet">Good morning 👋</h2>
+    <p id="d-date">Your financial snapshot</p>
+  </div>
 
-<section class="tool">
+  <div class="g4">
+    <div class="sc"><div class="sc-lbl">Total Income</div><div class="sc-val up" id="d-income">—</div><div class="sc-sub up">Monthly earnings</div></div>
+    <div class="sc"><div class="sc-lbl">Total Expenses</div><div class="sc-val dn" id="d-exp">—</div><div class="sc-sub" id="d-exp-pct" style="color:#ff6b6b;"></div></div>
+    <div class="sc"><div class="sc-lbl">Net Savings</div><div class="sc-val" id="d-sav" style="color:#0070f3;">—</div><div class="sc-sub" id="d-sav-pct" style="color:#6b7fa3;"></div></div>
+    <div class="sc"><div class="sc-lbl">Total Loan EMI</div><div class="sc-val wn" id="d-emi">—</div><div class="sc-sub wn" id="d-emi-pct"></div></div>
+  </div>
 
-<!-- LANGUAGE -->
-<div class="card">
-<h3 id="langTitle">Select Language</h3>
-
-<div style="display:flex; gap:10px;">
-  <button class="lang-btn" onclick="setLanguage('en')">English</button>
-  <button class="lang-btn" onclick="setLanguage('hi')">Hindi</button>
-  <button class="lang-btn" onclick="setLanguage('mr')">Marathi</button>
-</div>
-</div>
-
-<!-- MODE -->
-<div class="card">
-<h3 id="modeTitle">Choose Mode</h3>
-
-<button class="mode-btn" onclick="showMode('doc')">📄 Document Mode</button>
-<button class="mode-btn" onclick="showMode('tools')">⚙️ Financial Tools</button>
-
-<!-- DOCUMENT -->
-<div id="docMode" style="display:none;">
-  <textarea id="doc" placeholder="Paste financial document..."></textarea>
-  <button onclick="simplifyDoc()">Simplify & Explain</button>
-</div>
-
-<!-- TOOLS -->
-<div id="toolsMode" style="display:none;">
-
-  <h4>Loan Calculator</h4>
-  <input type="number" id="amount" placeholder="Amount">
-  <input type="number" id="rate" placeholder="Interest %">
-  <input type="number" id="months" placeholder="Months">
-  <button onclick="calculateLoan()">Calculate EMI</button>
-
-  <h4>Investment Advice</h4>
-  <select id="risk">
-    <option value="">Select Risk</option>
-    <option value="low">Low</option>
-    <option value="medium">Medium</option>
-    <option value="high">High</option>
-  </select>
-  <button onclick="investmentAdvice()">Get Advice</button>
-
-  <h4>Budget</h4>
-  <input type="number" id="income" placeholder="Income">
-  <input type="number" id="expenses" placeholder="Expenses">
-  <button onclick="budgetTips()">Analyze Budget</button>
-
-</div>
-
-</div>
-
-<div id="output"></div>
-
-</section>
-
-<footer>
-FinSight · Hackathon Project · Team ABLE
-</footer>
-
-<script>
-
-let currentLang = "en";
-
-// 🌍 UI TEXT
-const uiText = {
-  en: {
-    lang: "Select Language",
-    mode: "Choose Mode",
-    doc: "📄 Document Mode",
-    tools: "⚙️ Financial Tools"
-  },
-  hi: {
-    lang: "भाषा चुनें",
-    mode: "मोड चुनें",
-    doc: "📄 दस्तावेज़ मोड",
-    tools: "⚙️ वित्तीय उपकरण"
-  },
-  mr: {
-    lang: "भाषा निवडा",
-    mode: "मोड निवडा",
-    doc: "📄 दस्तऐवज मोड",
-    tools: "⚙️ आर्थिक साधने"
-  }
-};
-
-// 🌍 CONTENT TRANSLATIONS
-const t = {
-  en: {
-    doc: "This document means you must repay with interest.",
-    loan: "Your EMI is",
-    good: "Good savings",
-    bad: "Reduce expenses",
-    low: "Safe: FD / Bonds",
-    medium: "Mutual Funds",
-    high: "Stocks / Crypto"
-  },
-  hi: {
-    doc: "इस दस्तावेज़ का मतलब है कि आपको ब्याज के साथ भुगतान करना होगा।",
-    loan: "आपकी EMI है",
-    good: "अच्छी बचत",
-    bad: "खर्च कम करें",
-    low: "सुरक्षित: FD / Bonds",
-    medium: "म्यूचुअल फंड",
-    high: "स्टॉक्स / क्रिप्टो"
-  },
-  mr: {
-    doc: "या दस्तऐवजाचा अर्थ तुम्हाला व्याजासह परतफेड करावी लागेल.",
-    loan: "तुमची EMI आहे",
-    good: "चांगली बचत",
-    bad: "खर्च कमी करा",
-    low: "सुरक्षित: FD / Bonds",
-    medium: "म्युच्युअल फंड",
-    high: "स्टॉक्स / क्रिप्टो"
-  }
-};
-
-// 🌍 SET LANGUAGE (FIXED)
-function setLanguage(lang) {
-  currentLang = lang;
-
-  // Update UI text
-  document.getElementById("langTitle").innerText = uiText[lang].lang;
-  document.getElementById("modeTitle").innerText = uiText[lang].mode;
-
-  let buttons = document.querySelectorAll(".mode-btn");
-  buttons[0].innerText = uiText[lang].doc;
-  buttons[1].innerText = uiText[lang].tools;
-
-  // Speak confirmation
-  if(lang === "hi") speak("भाषा बदल दी गई है");
-  else if(lang === "mr") speak("भाषा बदलली आहे");
-  else speak("Language changed");
-}
-
-// 🔄 MODE SWITCH
-function showMode(mode) {
-  document.getElementById("docMode").style.display = "none";
-  document.getElementById("toolsMode").style.display = "none";
-
-  if(mode === "doc") document.getElementById("docMode").style.display = "block";
-  if(mode === "tools") document.getElementById("toolsMode").style.display = "block";
-}
-
-// 🔊 SPEECH
-function speak(text) {
-  let u = new SpeechSynthesisUtterance(text);
-
-  u.lang = currentLang === "hi" ? "hi-IN" :
-           currentLang === "mr" ? "mr-IN" : "en-IN";
-
-  speechSynthesis.cancel();
-  speechSynthesis.speak(u);
-}
-
-// 📄 DOCUMENT
-function simplifyDoc() {
-  let msg = t[currentLang].doc;
-
-  output.innerHTML = `<div class="card">${msg}</div>`;
-  speak(msg);
-}
-
-// 💰 LOAN
-function calculateLoan() {
-  let P = +amount.value;
-  let r = +rate.value / 12 / 100;
-  let n = +months.value;
-
-  let emi = (P * r * Math.pow(1+r,n)) / (Math.pow(1+r,n)-1);
-
-  let msg = `${t[currentLang].loan}: ₹${emi.toFixed(2)}`;
-
-  output.innerHTML = `<div class="card">${msg}</div>`;
-  speak(msg);
-}
-
-// 📈 INVESTMENT
-function investmentAdvice() {
-  let risk = document.getElementById("risk").value;
-  let msg = t[currentLang][risk] || "Select valid risk";
-
-  output.innerHTML = `<div class="card">${msg}</div>`;
-  speak(msg);
-}
-function budgetTips() {
-
-  let inc = +document.getElementById("income").value;
-  let exp = +document.getElementById("expenses").value;
-
-  if(!inc || !exp){
-    alert("Enter valid values");
-    return;
-  }
-
-  // CALL BACKEND
-  fetch('http://127.0.0.1:5000/budget', {
-    method:'POST',
-    headers:{'Content-Type':'application/json'},
-    body: JSON.stringify({
-      income: inc,
-      expenses: exp
-    })
-  })
-  .then(res => res.json())
-  .then(data => {
-
-    let savings = data.savings;
-
-    // Show result
-    let msg = inc > exp ? t[currentLang].good : t[currentLang].bad;
-
-    output.innerHTML = `
-      <div class="card">
-        <h3>Budget Result</h3>
-        <p>Income: ₹${inc}</p>
-        <p>Expenses: ₹${exp}</p>
-        <p>Savings: ₹${savings}</p>
-        <p>${msg}</p>
+  <div class="g2">
+    <div class="glass">
+      <div class="sec-title"><span class="dot"></span>Budget Breakdown</div>
+      <div class="legend">
+        <span class="leg"><span class="leg-sq" style="background:#00d4aa;"></span>Savings</span>
+        <span class="leg"><span class="leg-sq" style="background:#ff6b6b;"></span>Expenses</span>
+        <span class="leg"><span class="leg-sq" style="background:#ffd166;"></span>EMI</span>
+        <span class="leg"><span class="leg-sq" style="background:#0070f3;"></span>Investment</span>
       </div>
-    `;
+      <div class="chart-wrap"><canvas id="cDonut" role="img" aria-label="Doughnut chart showing budget split between savings, expenses, EMI and investments">Budget breakdown chart</canvas></div>
+    </div>
+    <div class="glass">
+      <div class="sec-title"><span class="dot"></span>AI Risk Insights</div>
+      <div id="d-insights"></div>
+    </div>
+  </div>
 
-    speak(msg);
-  })
-  .catch(err => {
-    alert("⚠️ Backend not running!");
-    console.error(err);
-  });
+  <div class="g3">
+    <div class="glass">
+      <div class="sec-title"><span class="dot"></span>Financial Report Card</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+        <div>
+          <div style="font-size:10px;color:var(--muted);margin-bottom:8px;text-transform:uppercase;letter-spacing:.6px;">Monthly Summary</div>
+          <div id="d-report-left"></div>
+        </div>
+        <div>
+          <div style="font-size:10px;color:var(--muted);margin-bottom:8px;text-transform:uppercase;letter-spacing:.6px;">Loan Summary</div>
+          <div id="d-report-right"></div>
+        </div>
+      </div>
+      <div style="margin-top:16px;">
+        <div style="font-size:10px;color:var(--muted);margin-bottom:10px;text-transform:uppercase;letter-spacing:.6px;">Risk Breakdown</div>
+        <div id="d-risk-bars"></div>
+        <div class="risk-pills" id="d-risk-pills">
+          <div class="rpill low" id="rp-low">LOW</div>
+          <div class="rpill mid" id="rp-mid">MEDIUM</div>
+          <div class="rpill hi" id="rp-hi">HIGH</div>
+        </div>
+      </div>
+    </div>
+    <div class="glass">
+      <div class="sec-title"><span class="dot"></span>Smart Suggestions</div>
+      <div id="d-suggestions"></div>
+      <div style="margin-top:16px;">
+        <div style="font-size:10px;color:var(--muted);margin-bottom:8px;text-transform:uppercase;letter-spacing:.6px;">Expense Split</div>
+        <div class="chart-wrap" style="height:130px;"><canvas id="cBar" role="img" aria-label="Bar chart of expense categories">Expense categories</canvas></div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<script>
+var userData={name:'',loans:[]};
+var chartDonut=null, chartBar=null, loanCount=0;
+
+function show(id){['pg-login','pg-setup','pg-dash'].forEach(p=>document.getElementById(p).classList.remove('active'));document.getElementById(id).classList.add('active');}
+
+function doLogin(){
+  var n=document.getElementById('l-name').value.trim();
+  var e=document.getElementById('l-email').value.trim();
+  var p=document.getElementById('l-pass').value;
+  var ok=true;
+  document.getElementById('err-email').style.display='none';
+  document.getElementById('err-pass').style.display='none';
+  if(!e||!e.includes('@')){document.getElementById('err-email').style.display='block';ok=false;}
+  if(p.length<6){document.getElementById('err-pass').style.display='block';ok=false;}
+  if(!ok)return;
+  userData.name=n||e.split('@')[0];
+  show('pg-setup');
+  goStep(1);
 }
 
-</script>
+function doLogout(){
+  userData={name:'',loans:[]};loanCount=0;
+  document.getElementById('l-name').value='';
+  document.getElementById('l-email').value='';
+  document.getElementById('l-pass').value='';
+  show('pg-login');
+}
 
+function goEdit(){show('pg-setup');goStep(1);}
+
+function goStep(s){
+  [1,2,3].forEach(i=>{
+    document.getElementById('step'+i).style.display=i===s?'block':'none';
+    var c=document.getElementById('sc'+i);
+    c.className='s-circle'+(i<s?' done':i===s?' active':'');
+  });
+  [1,2].forEach(i=>{document.getElementById('sl'+i).className='s-line'+(i<s?' done':'');});
+  var labels=['Income & Expenses','Loans','Monthly Expenses'];
+  document.getElementById('step-sub').textContent='Step '+s+' of 3 — '+labels[s-1];
+  if(s===2&&document.getElementById('loans-container').children.length===0)addLoan();
+}
+
+function addLoan(){
+  loanCount++;
+  var d=document.createElement('div');
+  d.className='loan-entry';d.id='loan-'+loanCount;
+  d.innerHTML='<div style="font-size:11px;color:var(--muted);margin-bottom:10px;font-weight:600;">Loan '+loanCount+'</div><button class="remove-btn" onclick="removeLoan('+loanCount+')">Remove</button><div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;"><div class="ffield"><label>Loan Name</label><input type="text" id="ln-'+loanCount+'" placeholder="e.g. Home Loan"/></div><div class="ffield"><label>Principal (₹)</label><input type="number" id="lp-'+loanCount+'" placeholder="e.g. 500000"/></div><div class="ffield"><label>Interest Rate (%)</label><input type="number" id="li-'+loanCount+'" placeholder="e.g. 12" step="0.1"/></div><div class="ffield"><label>Tenure (months)</label><input type="number" id="lt-'+loanCount+'" placeholder="e.g. 36"/></div></div>';
+  document.getElementById('loans-container').appendChild(d);
+}
+
+function removeLoan(id){
+  var el=document.getElementById('loan-'+id);
+  if(el)el.remove();
+}
+
+function calcEMI(p,r,n){if(!r)return p/n;var mr=r/12/100;return(p*mr*Math.pow(1+mr,n))/(Math.pow(1+mr,n)-1);}
+
+function fmt(n){return'₹'+Math.round(n).toLocaleString('en-IN');}
+function pct(a,b){return b?Math.round(a/b*100):0;}
+
+function buildDashboard(){
+  var income=parseFloat(document.getElementById('f-income').value)||0;
+  var other=parseFloat(document.getElementById('f-other').value)||0;
+  var savGoal=parseFloat(document.getElementById('f-savgoal').value)||30;
+  var invest=parseFloat(document.getElementById('f-invest').value)||0;
+  var totalIncome=income+other;
+
+  var rent=parseFloat(document.getElementById('f-rent').value)||0;
+  var food=parseFloat(document.getElementById('f-food').value)||0;
+  var trans=parseFloat(document.getElementById('f-trans').value)||0;
+  var ent=parseFloat(document.getElementById('f-ent').value)||0;
+  var util=parseFloat(document.getElementById('f-util').value)||0;
+  var misc=parseFloat(document.getElementById('f-misc').value)||0;
+  var totalExp=rent+food+trans+ent+util+misc;
+
+  var loans=[];
+  var totalEMI=0;
+  var maxRate=0;
+  document.querySelectorAll('.loan-entry').forEach(function(el){
+    var id=el.id.replace('loan-','');
+    var n=document.getElementById('ln-'+id)?.value||'Loan';
+    var p=parseFloat(document.getElementById('lp-'+id)?.value)||0;
+    var r=parseFloat(document.getElementById('li-'+id)?.value)||0;
+    var t=parseFloat(document.getElementById('lt-'+id)?.value)||12;
+    if(p>0){var emi=calcEMI(p,r,t);loans.push({name:n,principal:p,rate:r,tenure:t,emi:emi});totalEMI+=emi;if(r>maxRate)maxRate=r;}
+  });
+
+  var savings=totalIncome-totalExp-totalEMI-invest;
+  var savPct=pct(savings,totalIncome);
+  var expPct=pct(totalExp,totalIncome);
+  var emiPct=pct(totalEMI,totalIncome);
+
+  var riskScore=0;
+  if(maxRate>15)riskScore+=2;
+  else if(maxRate>10)riskScore+=1;
+  if(emiPct>40)riskScore+=2;
+  else if(emiPct>25)riskScore+=1;
+  if(savPct<10)riskScore+=2;
+  else if(savPct<20)riskScore+=1;
+  var riskLevel=riskScore>=4?'HIGH':riskScore>=2?'MEDIUM':'LOW';
+
+  var initials=userData.name.split(' ').map(w=>w[0]).join('').toUpperCase().slice(0,2)||'U';
+  document.getElementById('d-av').textContent=initials;
+  document.getElementById('d-name').textContent=userData.name;
+  document.getElementById('d-greet').textContent='Welcome back, '+userData.name.split(' ')[0]+' 👋';
+  document.getElementById('d-date').textContent='Your personalized financial snapshot — April 2026';
+
+  document.getElementById('d-income').textContent=fmt(totalIncome);
+  document.getElementById('d-exp').textContent=fmt(totalExp);
+  document.getElementById('d-exp-pct').textContent=expPct+'% of income';
+  document.getElementById('d-sav').textContent=fmt(Math.max(0,savings));
+  document.getElementById('d-sav-pct').textContent=savPct+'% savings rate';
+  document.getElementById('d-emi').textContent=totalEMI>0?fmt(totalEMI):'₹0';
+  document.getElementById('d-emi-pct').textContent=emiPct+'% of income';
+
+  var repL='<div class="rep-row"><span class="rep-k">Total Income</span><span class="rep-v up">'+fmt(totalIncome)+'</span></div><div class="rep-row"><span class="rep-k">Total Expenses</span><span class="rep-v dn">'+fmt(totalExp)+'</span></div><div class="rep-row"><span class="rep-k">Net Savings</span><span class="rep-v" style="color:#0070f3;">'+fmt(Math.max(0,savings))+'</span></div><div class="rep-row"><span class="rep-k">Savings Rate</span><span class="rep-v">'+savPct+'%</span></div>';
+  document.getElementById('d-report-left').innerHTML=repL;
+
+  var repR='';
+  if(loans.length===0){repR='<p class="no-loans">No loans entered</p>';}
+  else{loans.slice(0,3).forEach(function(l){repR+='<div class="rep-row"><span class="rep-k">'+l.name+'</span><span class="rep-v wn">'+fmt(l.emi)+'/mo</span></div>';});repR+='<div class="rep-row"><span class="rep-k">Total EMI</span><span class="rep-v">'+fmt(totalEMI)+'</span></div>';}
+  document.getElementById('d-report-right').innerHTML=repR;
+
+  var riskBars='<div class="risk-bar-row"><span class="rb-label">Interest</span><div class="rb-track"><div class="rb-fill" style="width:'+Math.min(100,maxRate*4)+'%;background:'+(maxRate>15?'#ff6b6b':maxRate>10?'#ffd166':'#00d4aa')+';"></div></div><span style="font-size:10px;color:var(--muted);width:28px;text-align:right;">'+Math.round(maxRate)+'%</span></div><div class="risk-bar-row"><span class="rb-label">EMI Load</span><div class="rb-track"><div class="rb-fill" style="width:'+Math.min(100,emiPct*2)+'%;background:'+(emiPct>40?'#ff6b6b':emiPct>25?'#ffd166':'#00d4aa')+';"></div></div><span style="font-size:10px;color:var(--muted);width:28px;text-align:right;">'+emiPct+'%</span></div><div class="risk-bar-row"><span class="rb-label">Savings</span><div class="rb-track"><div class="rb-fill" style="width:'+Math.min(100,savPct*2)+'%;background:'+(savPct>25?'#00d4aa':savPct>15?'#ffd166':'#ff6b6b')+';"></div></div><span style="font-size:10px;color:var(--muted);width:28px;text-align:right;">'+savPct+'%</span></div>';
+  document.getElementById('d-risk-bars').innerHTML=riskBars;
+  ['rp-low','rp-mid','rp-hi'].forEach(id=>document.getElementById(id).classList.remove('on'));
+  document.getElementById(riskLevel==='LOW'?'rp-low':riskLevel==='MEDIUM'?'rp-mid':'rp-hi').classList.add('on');
+
+  var insights='';
+  if(maxRate>15)insights+='<div class="ins-item"><div class="ins-ico d">⚠</div><div class="ins-t"><strong>High interest detected</strong><span>Rate of '+maxRate+'% exceeds safe threshold of 15%.</span></div><span class="badge bh">HIGH</span></div>';
+  else if(maxRate>10)insights+='<div class="ins-item"><div class="ins-ico w">!</div><div class="ins-t"><strong>Moderate interest rate</strong><span>'+maxRate+'% — consider refinancing options below 10%.</span></div><span class="badge bm">MED</span></div>';
+  if(emiPct>40)insights+='<div class="ins-item"><div class="ins-ico d">💳</div><div class="ins-t"><strong>EMI burden is high</strong><span>'+emiPct+'% of income goes to EMIs — ideally keep below 40%.</span></div><span class="badge bh">HIGH</span></div>';
+  else if(emiPct>0)insights+='<div class="ins-item"><div class="ins-ico w">💳</div><div class="ins-t"><strong>EMI load manageable</strong><span>'+emiPct+'% of income on EMIs. Healthy limit is 40%.</span></div><span class="badge bm">MED</span></div>';
+  if(savPct>=savGoal)insights+='<div class="ins-item"><div class="ins-ico g">✓</div><div class="ins-t"><strong>Savings goal met</strong><span>You are saving '+savPct+'% — above your '+savGoal+'% target.</span></div><span class="badge bl">GOOD</span></div>';
+  else insights+='<div class="ins-item"><div class="ins-ico d">⚡</div><div class="ins-t"><strong>Below savings goal</strong><span>Saving '+savPct+'% vs your '+savGoal+'% target. Trim discretionary spend.</span></div><span class="badge bh">LOW</span></div>';
+  if(food>0&&pct(food,totalExp)>20)insights+='<div class="ins-item"><div class="ins-ico w">🍽</div><div class="ins-t"><strong>Food spend is high</strong><span>Food is '+pct(food,totalExp)+'% of expenses. Target under 20%.</span></div><span class="badge bm">MED</span></div>';
+  if(!insights)insights='<div class="ins-item"><div class="ins-ico g">✓</div><div class="ins-t"><strong>All metrics look healthy</strong><span>No major risk flags detected.</span></div><span class="badge bl">OK</span></div>';
+  document.getElementById('d-insights').innerHTML=insights;
+
+  var sugs=[];
+  if(maxRate>12)sugs.push('Refinance your loan at '+maxRate+'% to under 10% — could save '+fmt(totalEMI*0.2)+'/year.');
+  if(savPct<savGoal)sugs.push('Increase savings by cutting discretionary spend by ₹'+Math.round((savGoal/100*totalIncome-savings)/12).toLocaleString('en-IN')+'/month.');
+  if(invest===0)sugs.push('Start a SIP of ₹5,000/month in index funds for long-term wealth building.');
+  else sugs.push('Your ₹'+Math.round(invest).toLocaleString('en-IN')+'/month investment is great. Consider diversifying into debt funds.');
+  if(emiPct>30)sugs.push('Build an emergency fund of '+fmt(totalExp*3)+' before taking new loans.');
+  sugs.push('Review subscriptions & utilities — small cuts compound into big annual savings.');
+  var sugHtml=sugs.map(function(s,i){return'<div class="sug-item"><div class="sug-n">'+(i+1)+'</div><p>'+s+'</p></div>';}).join('');
+  document.getElementById('d-suggestions').innerHTML=sugHtml;
+
+  if(chartDonut){chartDonut.destroy();}
+  chartDonut=new Chart(document.getElementById('cDonut'),{type:'doughnut',data:{labels:['Savings','Expenses','EMI','Investment'],datasets:[{data:[Math.max(0,savings),totalExp,totalEMI,invest],backgroundColor:['#00d4aa','#ff6b6b','#ffd166','#0070f3'],borderColor:'#111827',borderWidth:3,hoverOffset:5}]},options:{responsive:true,maintainAspectRatio:false,cutout:'65%',plugins:{legend:{display:false},tooltip:{callbacks:{label:function(c){return' '+fmt(c.raw)+' ('+pct(c.raw,totalIncome)+'%)';}}}}}});
+
+  var expLabels=['Rent','Food','Transport','Entertainment','Utilities','Other'];
+  var expData=[rent,food,trans,ent,util,misc];
+  if(chartBar){chartBar.destroy();}
+  chartBar=new Chart(document.getElementById('cBar'),{type:'bar',data:{labels:expLabels,datasets:[{label:'Amount',data:expData,backgroundColor:['#00d4aa','#ff6b6b','#ffd166','#0070f3','#a855f7','#6b7fa3'],borderRadius:4}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{ticks:{color:'#6b7fa3',font:{size:9}},grid:{display:false},autoSkip:false},y:{ticks:{color:'#6b7fa3',font:{size:9},callback:function(v){return'₹'+Math.round(v/1000)+'k';}},grid:{color:'rgba(255,255,255,0.04)'}}}}});
+
+  show('pg-dash');
+}
+</script>
 </body>
 </html>
